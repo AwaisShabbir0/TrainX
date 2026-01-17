@@ -127,8 +127,11 @@ public class ViewPassengersController {
                         rs.getString("gender"),
                         u));
             }
+
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Error loading passengers: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Error Loading Data", "Could not load passenger list: " + e.getMessage());
         }
     }
 

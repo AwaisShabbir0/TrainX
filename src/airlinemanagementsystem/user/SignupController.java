@@ -42,10 +42,17 @@ public class SignupController {
 
         try {
             Conn c = new Conn();
-            // Check if username exists
+            // Check if username already exists
             ResultSet rs = c.s.executeQuery("select * from users where username = '" + username + "'");
             if (rs.next()) {
                 showAlert(Alert.AlertType.ERROR, "Duplicate", "Username already exists!");
+                return;
+            }
+            
+            // Check if CNIC already exists
+            ResultSet rsCNIC = c.s.executeQuery("select * from users where cnic = '" + cnic + "'");
+            if (rsCNIC.next()) {
+                showAlert(Alert.AlertType.ERROR, "Duplicate", "An account with this CNIC already exists!");
                 return;
             }
 

@@ -72,6 +72,17 @@ public class AddCustomerController {
 
         try {
             Conn conn = new Conn();
+
+            // Check if CNIC already exists in passenger table
+            try {
+                java.sql.ResultSet rs = conn.s.executeQuery("SELECT * FROM passenger WHERE cnic = '" + cnic + "'");
+                if (rs.next()) {
+                    showAlert(Alert.AlertType.ERROR, "Duplicate", "Passenger with this CNIC already exists!");
+                    return;
+                }
+            } catch (Exception e) {
+                 e.printStackTrace();
+            }
             
             // 1. First, create the User Login (users table)
             // Users table schema: username, password, name, cnic, phone, address
@@ -81,8 +92,7 @@ public class AddCustomerController {
             } catch (Exception e) {
                  // Ignore duplicate username here, handled by SQL constraint usually, but let's notify
                  if(e.getMessage().contains("Duplicate")) {
-                     showAlert(Alert.AlertType.ERROR, "Error", "Username already exists!");
-                     return;
+                     showAlert(Alert.AlertType.WARNING, "Warning", "Username exists. Linking to existing user.");
                  }
                  // If users table insert fails, might abort? But let's try passenger.
                  System.out.println("User insert warning: " + e.getMessage());
@@ -121,16 +131,7 @@ public class AddCustomerController {
             showAlert(Alert.AlertType.ERROR, "Database Error", e.getMessage());
         }
     }
-            conn.s.executeUpdate(query);
-            showAlert(Alert.AlertType.INFORMATION, "Success", "Customer Details Added Successfully");
-            clearFields();
-            // Return to View Passengers list so user can see their addition
-            MainApp.showViewPassengers();
-        } catch (Exception e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Database Error", e.getMessage());
-        }
-    }
+
 
     @FXML
     private void handleBack() {
