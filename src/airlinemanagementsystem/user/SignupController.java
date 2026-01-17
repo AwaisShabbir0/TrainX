@@ -53,6 +53,13 @@ public class SignupController {
                     + cnic + "', '" + phone + "', '" + address + "')";
             c.s.executeUpdate(query);
 
+            // Also add to passenger table for Admin View
+            String passengerQuery = "INSERT INTO passenger VALUES('" + name + "', 'PK', '" + phone + "', '"
+            + address + "', '" + cnic + "', 'Male', '" + username + "')";
+            // improved logic: default nationality to PK and gender to Male (since not collected in signup)
+            // ideally we should add gender/nationality to signup form too, but for now defaults work
+            c.s.executeUpdate(passengerQuery);
+
             showAlert(Alert.AlertType.INFORMATION, "Success", "Account Created Successfully!");
             MainApp.showLoginScreen();
 

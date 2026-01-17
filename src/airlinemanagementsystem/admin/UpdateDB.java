@@ -13,8 +13,17 @@ public class UpdateDB {
             try {
                 // Check if table exists, if not create
                 // Note: This is basic. Ideally use "CREATE TABLE IF NOT EXISTS"
-                String q = "CREATE TABLE IF NOT EXISTS passenger (name varchar(50), nationality varchar(30), phone varchar(20), address varchar(100), cnic varchar(20), gender varchar(10))";
+                String q = "CREATE TABLE IF NOT EXISTS passenger (name varchar(50), nationality varchar(30), phone varchar(20), address varchar(100), cnic varchar(20), gender varchar(10), username varchar(50))";
                 c.s.executeUpdate(q);
+                
+                // Alter table if exists (for migration)
+                try {
+                    c.s.executeUpdate("ALTER TABLE passenger ADD COLUMN username VARCHAR(50)");
+                    System.out.println("Added 'username' column to 'passenger' table.");
+                } catch (Exception e) {
+                   // Column likely exists
+                }
+                
                 System.out.println("Checked 'passenger' table.");
             } catch (Exception e) {
                 System.out.println("Error checking 'passenger' table: " + e.getMessage());

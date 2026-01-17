@@ -20,6 +20,8 @@ public class ViewPassengersController {
     @FXML
     private TableView<Passenger> passengersTable;
     @FXML
+    private TableColumn<Passenger, String> colUsername;
+    @FXML
     private TableColumn<Passenger, String> colName;
     @FXML
     private TableColumn<Passenger, String> colNationality;
@@ -38,6 +40,7 @@ public class ViewPassengersController {
 
     @FXML
     public void initialize() {
+        colUsername.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getUsername()));
         colName.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getName()));
         colNationality.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getNationality()));
         colPhone.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getPhone()));
@@ -89,6 +92,13 @@ public class ViewPassengersController {
             String query = "DELETE FROM passenger WHERE cnic = '" + passenger.getCnic() + "'";
             c.s.executeUpdate(query);
 
+            // Also delete from users login table if username exists
+            String username = passenger.getUsername();
+            if (username != null && !username.isEmpty()) {
+                String query2 = "DELETE FROM users WHERE username = '" + username + "'";
+                c.s.executeUpdate(query2);
+            }
+
             // Refresh list
             passengers.remove(passenger);
             showAlert(Alert.AlertType.INFORMATION, "Success", "Passenger deleted successfully.");
@@ -106,13 +116,16 @@ public class ViewPassengersController {
             ResultSet rs = c.s.executeQuery(query);
 
             while (rs.next()) {
+                String u = rs.getString("username");
+                System.out.println("Loaded Passenger: " + rs.getString("name") + " | Username: " + u);
                 passengers.add(new Passenger(
                         rs.getString("name"),
                         rs.getString("nationality"),
                         rs.getString("phone"),
                         rs.getString("address"),
                         rs.getString("cnic"),
-                        rs.getString("gender")));
+                        rs.getString("gender"),
+                        u));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -145,14 +158,20 @@ public class ViewPassengersController {
         private final String address;
         private final String cnic;
         private final String gender;
+        private final String username;
 
-        public Passenger(String name, String nationality, String phone, String address, String cnic, String gender) {
+        public Passenger(String name, String nationality, String phone, String address, String cnic, String gender, String username) {
             this.name = name;
             this.nationality = nationality;
             this.phone = phone;
             this.address = address;
             this.cnic = cnic;
             this.gender = gender;
+            this.username = username;
+        }
+        
+        public String getUsername() {
+            return username;
         }
 
         public String getName() {

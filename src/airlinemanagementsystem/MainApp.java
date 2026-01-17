@@ -13,8 +13,12 @@ public class MainApp extends Application {
     private static String userRole;
 
     @Override
-    public void start(Stage stage) throws Exception {
-        primaryStage = stage;
+    public void start(Stage primaryStage) {
+        // Run DB Update/Check on startup to fix schema issues
+        new airlinemanagementsystem.admin.UpdateDB().main(null);
+        
+        MainApp.primaryStage = primaryStage;
+        primaryStage.getIcons().add(new Image(MainApp.class.getResourceAsStream("icons/trainx_logo.png")));
         showLoginScreen();
     }
 

@@ -20,6 +20,7 @@
 
     <TableView fx:id="passengersTable" VBox.vgrow="ALWAYS">
         <columns>
+            <TableColumn fx:id="colUsername" prefWidth="100.0" text="Username" />
             <TableColumn fx:id="colName" prefWidth="150.0" text="Name" />
             <TableColumn fx:id="colNationality" prefWidth="100.0" text="Nationality" />
             <TableColumn fx:id="colPhone" prefWidth="120.0" text="Phone" />
