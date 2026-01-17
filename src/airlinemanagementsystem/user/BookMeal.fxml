@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane style="-fx-background-color: -secondary-color;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="airlinemanagementsystem.user.BookMealController">
+    <top>
+        <Label styleClass="header-label" text="In-Train Catering" BorderPane.alignment="CENTER_LEFT">
+            <padding>
+                <Insets bottom="20.0" left="40.0" top="20.0" />
+            </padding>
+        </Label>
+    </top>
+    
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="20.0">
+            <padding>
+                <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
+            </padding>
+            
+            <!-- PNR Search -->
+            <HBox alignment="CENTER" spacing="15.0" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10;">
+                <Label styleClass="label" text="Enter PNR:" />
+                <TextField fx:id="tfPNR" promptText="PNR-123456" />
+                <Button onAction="#handleCheckPNR" styleClass="button" text="Verify Ticket" />
+            </HBox>
+            
+            <Label fx:id="lblStatus" style="-fx-text-fill: red; -fx-font-weight: bold;" text="" />
+            
+            <!-- Menu Grid -->
+            <GridPane fx:id="menuGrid" disable="true" hgap="30.0" vgap="20.0" alignment="CENTER" style="-fx-background-color: white; -fx-padding: 30; -fx-background-radius: 10;">
+                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Item" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Price" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Select" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                
+                <!-- Item 1 -->
+                <Label text="Chicken Biryani" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <Label text="Rs. 500" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <CheckBox fx:id="cbItem1" text="Add" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                
+                <!-- Item 2 -->
+                <Label text="Club Sandwich" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <Label text="Rs. 350" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <CheckBox fx:id="cbItem2" text="Add" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                
+                <!-- Item 3 -->
+                <Label text="Mineral Water (L)" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <Label text="Rs. 100" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <CheckBox fx:id="cbItem3" text="Add" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                
+                <!-- Item 4 -->
+                <Label text="Tea / Coffee" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <Label text="Rs. 80" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <CheckBox fx:id="cbItem4" text="Add" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                
+            </GridPane>
+            
+            <HBox alignment="CENTER" spacing="20.0">
+                <Label style="-fx-font-size: 20px;" text="Total: Rs." />
+                <Label fx:id="lblTotal" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: green;" text="0" />
+            </HBox>
+            
+            <HBox alignment="CENTER" spacing="20.0">
+                <Button fx:id="btnOrder" disable="true" onAction="#handleOrder" styleClass="button, button-accent" text="Place Order" />
+                <Button onAction="#handleBack" styleClass="button" style="-fx-background-color: gray;" text="Back" />
+            </HBox>
+            
+        </VBox>
+    </center>
+</BorderPane>

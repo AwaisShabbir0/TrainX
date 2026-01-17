@@ -1,0 +1,77 @@
+package airlinemanagementsystem.user;
+
+import airlinemanagementsystem.Conn;
+import airlinemanagementsystem.MainApp;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import java.sql.ResultSet;
+
+public class SignupController {
+
+    @FXML
+    private TextField usernameField, nameField, cnicField, phoneField, addressField;
+    @FXML
+    private PasswordField passwordField;
+
+    @FXML
+    private void handleRegister() {
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+        String name = nameField.getText();
+        String cnic = cnicField.getText();
+        String phone = phoneField.getText();
+        String address = addressField.getText();
+
+        // Validation
+        if (username.isEmpty() || password.isEmpty() || name.isEmpty() || cnic.isEmpty() || phone.isEmpty()
+                || address.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Missing Fields", "Please fill all fields!");
+            return;
+        }
+        if (!phone.matches("\\d+") || !cnic.matches("\\d+")) {
+            showAlert(Alert.AlertType.WARNING, "Invalid Input", "Phone and CNIC must be numeric!");
+            return;
+        }
+        if (cnic.length() != 13) {
+            showAlert(Alert.AlertType.WARNING, "Invalid CNIC", "CNIC must be 13 digits!");
+            return;
+        }
+
+        try {
+            Conn c = new Conn();
+            // Check if username exists
+            ResultSet rs = c.s.executeQuery("select * from users where username = '" + username + "'");
+            if (rs.next()) {
+                showAlert(Alert.AlertType.ERROR, "Duplicate", "Username already exists!");
+                return;
+            }
+
+            String query = "INSERT INTO users VALUES('" + username + "', '" + password + "', '" + name + "', '"
+                    + cnic + "', '" + phone + "', '" + address + "')";
+            c.s.executeUpdate(query);
+
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Account Created Successfully!");
+            MainApp.showLoginScreen();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Database Error", e.getMessage());
+        }
+    }
+
+    @FXML
+    private void handleBack() {
+        MainApp.showLoginScreen();
+    }
+
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+}

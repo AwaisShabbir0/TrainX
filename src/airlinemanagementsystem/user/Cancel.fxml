@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="airlinemanagementsystem.user.CancelController">
+    <top>
+         <VBox alignment="CENTER" spacing="20.0">
+            <padding>
+                <Insets bottom="20.0" top="30.0" />
+            </padding>
+            <Label styleClass="header-label" text="Ticket Cancellation" />
+         </VBox>
+    </top>
+    
+    <center>
+        <HBox alignment="CENTER" spacing="50.0">
+            <VBox alignment="CENTER">
+            <padding>
+                <Insets bottom="50.0" left="20.0" right="50.0" top="20.0" />
+            </padding>
+            <GridPane hgap="15.0" vgap="15.0" alignment="CENTER">
+                <!-- PNR Search -->
+                <Label styleClass="label" text="PNR Number:" GridPane.rowIndex="0" />
+                <TextField fx:id="pnrField" prefWidth="200.0" promptText="Enter PNR" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Button onAction="#handleFetchDetails" styleClass="button" text="Show Details" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+        
+                <!-- Details -->
+                <Label styleClass="label" text="Name:" GridPane.rowIndex="1" />
+                <Label fx:id="nameLabel" styleClass="label" text="---" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        
+                <Label styleClass="label" text="Cancellation No:" GridPane.rowIndex="2" />
+                <Label fx:id="cancelNoLabel" styleClass="label" text="---" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        
+                <Label styleClass="label" text="Train Code:" GridPane.rowIndex="3" />
+                <Label fx:id="trainCodeLabel" styleClass="label" text="---" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        
+                <Label styleClass="label" text="Date:" GridPane.rowIndex="4" />
+                <Label fx:id="dateLabel" styleClass="label" text="---" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        
+                <!-- Buttons -->
+                <HBox spacing="15.0" alignment="CENTER_RIGHT" GridPane.columnSpan="3" GridPane.rowIndex="5">
+                     <Button onAction="#handleCancelTicket" styleClass="button, button-accent" text="Cancel Ticket" />
+                     <Button onAction="#handleBack" style="-fx-background-color: gray;" styleClass="button" text="Back" />
+                </HBox>
+            </GridPane>
+        </VBox>
+        <VBox alignment="CENTER">
+            <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                 <image>
+                    <Image url="@../icons/cancel_icon.png" />
+                 </image>
+            </ImageView>
+        </VBox>
+      </HBox>
+    </center>
+</BorderPane>

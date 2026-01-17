@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="airlinemanagementsystem.user.TrainScheduleController">
+    <top>
+        <VBox spacing="15.0">
+            <padding>
+                <Insets bottom="20.0" left="40.0" right="40.0" top="20.0" />
+            </padding>
+            <Label styleClass="header-label" text="Train Schedule" />
+            <HBox alignment="CENTER_RIGHT">
+                <Button onAction="#handleBack" style="-fx-background-color: gray;" styleClass="button" text="Back" />
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <HBox alignment="CENTER" spacing="20.0">
+            <TableView fx:id="scheduleTable" prefWidth="700.0" HBox.hgrow="NEVER">
+                <placeholder>
+                    <Label text="Loading schedule..." />
+                </placeholder>
+                 <columnResizePolicy>
+                      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                 </columnResizePolicy>
+            </TableView>
+            <VBox alignment="CENTER">
+                <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/schedule_icon.png" />
+                     </image>
+                </ImageView>
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>

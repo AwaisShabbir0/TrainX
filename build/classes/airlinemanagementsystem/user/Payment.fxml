@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane style="-fx-background-color: -secondary-color;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="airlinemanagementsystem.user.PaymentController">
+    <top>
+        <Label styleClass="header-label" text="Confirm &amp; Pay" BorderPane.alignment="CENTER_LEFT">
+            <padding>
+                <Insets bottom="20.0" left="40.0" top="20.0" />
+            </padding>
+        </Label>
+    </top>
+    
+    <center>
+        <VBox alignment="CENTER" spacing="30.0">
+            <padding>
+                <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+            </padding>
+            
+            <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: -primary-color;" text="Booking Summary" />
+            
+            <VBox alignment="CENTER_LEFT" maxWidth="400.0" spacing="15.0" style="-fx-background-color: white; -fx-padding: 30; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+                <HBox spacing="10.0">
+                    <Label style="-fx-font-weight: bold;" text="PNR:" />
+                    <Label fx:id="pnrLabel" text="---" />
+                </HBox>
+                <HBox spacing="10.0">
+                    <Label style="-fx-font-weight: bold;" text="Seats:" />
+                    <Label fx:id="seatsLabel" text="---" />
+                </HBox>
+                <HBox spacing="10.0">
+                    <Label style="-fx-font-weight: bold;" text="Total Amount:" />
+                    <Label fx:id="amountLabel" style="-fx-text-fill: red; -fx-font-size: 18px; -fx-font-weight: bold;" text="PKR 0.0" />
+                </HBox>
+                 <HBox spacing="10.0">
+                    <Label style="-fx-font-weight: bold;" text="Your Wallet Balance:" />
+                    <Label fx:id="lblWalletBalance" style="-fx-text-fill: green; -fx-font-size: 16px; -fx-font-weight: bold;" text="Checking..." />
+                </HBox>
+            </VBox>
+            
+            <Label fx:id="lblError" text="" style="-fx-text-fill: red; -fx-font-weight: bold;" />
+
+            <HBox alignment="CENTER" spacing="20.0">
+                <Button fx:id="btnPay" onAction="#handlePay" styleClass="button, button-accent" text="Pay from Wallet" />
+                <Button onAction="#handleCancel" styleClass="button" style="-fx-background-color: gray;" text="Cancel" />
+            </HBox>
+            
+        </VBox>
+    </center>
+</BorderPane>

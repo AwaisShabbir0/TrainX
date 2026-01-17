@@ -1,0 +1,145 @@
+/* Global Variables */
+.root {
+    -primary-color: #006400;
+    /* Dark Green */
+    -secondary-color: #F0FFF0;
+    /* HoneyDew */
+    -accent-color: #FF4500;
+    /* Red-Orange */
+    -text-color: #323232;
+    -fx-font-family: 'Tahoma';
+}
+
+/* Base Styling */
+.root {
+    -fx-background-color: -secondary-color;
+}
+
+/* Labels */
+.label {
+    -fx-text-fill: -text-color;
+    -fx-font-size: 14px;
+}
+
+.header-label {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -primary-color;
+}
+
+.subheader-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -primary-color;
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: -primary-color;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20 10 20;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: derive(-primary-color, 20%);
+}
+
+.button-accent {
+    -fx-background-color: -accent-color;
+}
+
+.button-accent:hover {
+    -fx-background-color: derive(-accent-color, 20%);
+}
+
+.button-secondary {
+    -fx-background-color: gray;
+}
+
+.dashboard-tile {
+    -fx-background-color: white;
+    -fx-text-fill: -primary-color;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-pref-width: 160px;
+    -fx-pref-height: 150px;
+    -fx-alignment: center;
+    -fx-content-display: top;
+    -fx-graphic-text-gap: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 0);
+    -fx-cursor: hand;
+    -fx-border-color: -primary-color;
+    -fx-border-width: 0 0 4 0;
+}
+
+.dashboard-tile:hover {
+    -fx-background-color: #f0f0f0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 100, 0, 0.3), 10, 0, 0, 5);
+}
+
+/* Inputs */
+.text-field,
+.password-field,
+.combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 3;
+    -fx-padding: 5;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused,
+.password-field:focused {
+    -fx-border-color: -primary-color;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 100, 0, 0.3), 5, 0, 0, 0);
+}
+
+/* Table View */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: -primary-color;
+}
+
+.table-view .column-header,
+.table-view .filler {
+    -fx-background-color: transparent;
+    -fx-size: 35;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: center-left;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: -secondary-color;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: derive(-primary-color, 90%);
+    -fx-text-background-color: -text-color;
+}
+
+/* Dashboard Background */
+.dashboard-background {
+    -fx-background-image: url('icons/train_dashboard_bg.png');
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+}
