@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<StackPane styleClass="dashboard-background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="railwaymanagementsystem.DashboardController">
+    <BorderPane>
+        <top>
+            <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: #E1FFE1; -fx-padding: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 2);">
+                <ImageView fitHeight="100.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@icons/trainx_logo.png" />
+                    </image>
+                </ImageView>
+                <Label style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #006400;" text="TrainX Dashboard" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="welcomeLabel" style="-fx-font-size: 16px; -fx-text-fill: #006400;" text="Welcome" />
+            </HBox>
+        </top>
+
+    <center>
+        <TilePane fx:id="buttonContainer" alignment="CENTER" hgap="30.0" vgap="30.0" prefColumns="3">
+            <padding>
+                <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+            </padding>
+            
+            <!-- Customer Buttons -->
+            <Button fx:id="btnBookTicket" onAction="#handleBookTicket" styleClass="dashboard-tile" text="Book Ticket" visible="false" managed="false">
+                <graphic>
+                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/train_icon.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <Button fx:id="btnTrainSchedule" onAction="#handleTrainSchedule" styleClass="dashboard-tile" text="Train Schedule" visible="false" managed="false">
+                 <graphic>
+                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/schedule_icon.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <Button fx:id="btnJourneyHistory" onAction="#handleJourneyHistory" styleClass="dashboard-tile" text="Journey History" visible="false" managed="false">
+                 <graphic>
+                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/history_icon.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <Button fx:id="btnCancelTicket" onAction="#handleCancelTicket" styleClass="dashboard-tile" text="Cancel Ticket" visible="false" managed="false">
+                 <graphic>
+                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/cancel_icon.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <Button fx:id="btnDownloadTicket" onAction="#handleDownloadTicket" styleClass="dashboard-tile" text="Download Ticket" visible="false" managed="false">
+                 <graphic>
+                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/download_icon.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Button fx:id="btnWallet" onAction="#handleWallet" styleClass="dashboard-tile" text="My Wallet" visible="false" managed="false">
+                 <graphic>
+                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/wallet_icon.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Button fx:id="btnMeal" onAction="#handleBookMeal" styleClass="dashboard-tile" text="Book Meal" visible="false" managed="false">
+                 <graphic>
+                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/food_icon.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Button fx:id="btnProfile" onAction="#handleProfile" styleClass="dashboard-tile" text="My Profile" visible="false" managed="false">
+                 <graphic>
+                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/profile_icon.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <!-- Admin Buttons -->
+            <Button fx:id="btnAddTrain" onAction="#handleAddTrain" styleClass="dashboard-tile" text="Add Train" visible="false" managed="false">
+                 <graphic>
+                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/train_icon.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <Button fx:id="btnViewTrains" onAction="#handleViewTrains" styleClass="dashboard-tile" text="View Trains" visible="false" managed="false">
+                 <graphic>
+                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/train_icon.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <Button fx:id="btnAnalytics" onAction="#handleAnalytics" styleClass="dashboard-tile" text="Analytics" visible="false" managed="false">
+                <graphic>
+                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/analytics_icon.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <Button fx:id="btnPassengerInfo" onAction="#handlePassengerInfo" styleClass="dashboard-tile" text="Passenger Info" visible="false" managed="false">
+                 <graphic>
+                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/passenger_icon.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Button fx:id="btnKitchenOrders" onAction="#handleKitchenOrders" styleClass="dashboard-tile" text="Kitchen Orders" visible="false" managed="false">
+                 <graphic>
+                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/food_icon.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </TilePane>
+    </center>
+
+    <bottom>
+        <VBox alignment="CENTER_RIGHT" style="-fx-background-color: transparent;">
+             <padding>
+                <Insets bottom="20.0" right="20.0" />
+            </padding>
+            <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#handleLogout" style="-fx-background-color: #FF4500;" styleClass="button" text="Logout" />
+        </VBox>
+    </bottom>
+    </BorderPane>
+</StackPane>
