@@ -33,6 +33,8 @@ public class DashboardController {
     private Button btnMeal;
     @FXML
     private Button btnWallet;
+    @FXML
+    private Button btnAnalytics;
 
     @FXML
     public void initialize() {
@@ -53,6 +55,7 @@ public class DashboardController {
             setButtonVisible(btnViewTrains, true);
             setButtonVisible(btnPassengerInfo, true);
             setButtonVisible(btnKitchenOrders, true);
+            setButtonVisible(btnAnalytics, true);
 
             setButtonVisible(btnBookTicket, false);
             setButtonVisible(btnTrainSchedule, false);
@@ -68,6 +71,7 @@ public class DashboardController {
             setButtonVisible(btnViewTrains, false);
             setButtonVisible(btnPassengerInfo, false);
             setButtonVisible(btnKitchenOrders, false);
+            setButtonVisible(btnAnalytics, false);
 
             setButtonVisible(btnBookTicket, true);
             setButtonVisible(btnTrainSchedule, true);
@@ -90,6 +94,11 @@ public class DashboardController {
     @FXML
     private void handleBookTicket() {
         MainApp.showBookTicket();
+    }
+    
+    @FXML
+    private void handleAnalytics() {
+        MainApp.showAnalytics();
     }
 
     @FXML

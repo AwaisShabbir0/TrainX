@@ -113,6 +113,16 @@ public class WalletController {
             return;
         }
 
+        if (!card.matches("\\d{16}")) {
+            showAlert(Alert.AlertType.WARNING, "Invalid Card", "Card number must be exactly 16 digits.");
+            return;
+        }
+
+        if (!cvv.matches("\\d{3}")) {
+            showAlert(Alert.AlertType.WARNING, "Invalid CVV", "CVV must be exactly 3 digits.");
+            return;
+        }
+
         if (input.isEmpty() || !input.matches("\\d+(\\.\\d+)?")) {
             showAlert(Alert.AlertType.WARNING, "Invalid Amount", "Please enter a valid numeric amount.");
             return;

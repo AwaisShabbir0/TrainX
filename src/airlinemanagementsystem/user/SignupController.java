@@ -36,7 +36,11 @@ public class SignupController {
             return;
         }
         if (cnic.length() != 13) {
-            showAlert(Alert.AlertType.WARNING, "Invalid CNIC", "CNIC must be 13 digits!");
+            showAlert(Alert.AlertType.WARNING, "Invalid CNIC", "CNIC must be exactly 13 digits!");
+            return;
+        }
+        if (phone.length() != 11) {
+            showAlert(Alert.AlertType.WARNING, "Invalid Phone", "Phone number must be exactly 11 digits!");
             return;
         }
 

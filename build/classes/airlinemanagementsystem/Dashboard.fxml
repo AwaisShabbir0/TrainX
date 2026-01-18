@@ -15,8 +15,8 @@
 <StackPane styleClass="dashboard-background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="airlinemanagementsystem.DashboardController">
     <BorderPane>
         <top>
-            <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: rgba(225, 255, 225, 0.95); -fx-padding: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 2);">
-                <ImageView fitHeight="60.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+            <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: #E1FFE1; -fx-padding: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 2);">
+                <ImageView fitHeight="100.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@icons/trainx_logo.png" />
                     </image>
@@ -130,6 +130,16 @@
                     <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                         <image>
                             <Image url="@icons/train_icon.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
+            <Button fx:id="btnAnalytics" onAction="#handleAnalytics" styleClass="dashboard-tile" text="Analytics" visible="false" managed="false">
+                <graphic>
+                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/analytics_icon.png" />
                         </image>
                     </ImageView>
                 </graphic>

@@ -276,6 +276,20 @@ public class MainApp extends Application {
         }
     }
 
+    public static void showAnalytics() {
+        try {
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("admin/Analytics.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root, 1000, 600);
+            scene.getStylesheets().add(MainApp.class.getResource("styles.css").toExternalForm());
+
+            primaryStage.setTitle("TrainX Management System - Analytics");
+            primaryStage.setScene(scene);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         launch(args);
     }

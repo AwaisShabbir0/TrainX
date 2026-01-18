@@ -63,6 +63,17 @@ public class AddTrainController {
             return;
         }
 
+        if (!fair.matches("\\d+(\\.\\d+)?")) {
+             showAlert(Alert.AlertType.WARNING, "Validation Error", "Price must be a valid number.");
+             return;
+        }
+
+        // Simple Time Validation HH:mm
+        if (!dep.matches("([01]?[0-9]|2[0-3]):[0-5][0-9]") || !arr.matches("([01]?[0-9]|2[0-3]):[0-5][0-9]")) {
+            showAlert(Alert.AlertType.WARNING, "Validation Error", "Time must be in HH:mm format (e.g., 14:30).");
+            return;
+        }
+
         try {
             Conn conn = new Conn();
             // Check if row already exists

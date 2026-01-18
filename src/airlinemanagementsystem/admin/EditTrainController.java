@@ -71,8 +71,19 @@ public class EditTrainController {
         if (destField.getText() == null || destField.getText().length() == 0) {
             errorMessage += "No valid destination!\n";
         }
-        if (fairField.getText() == null || fairField.getText().length() == 0) {
-            errorMessage += "No valid price!\n";
+        if (fairField.getText() == null || fairField.getText().length() == 0 || !fairField.getText().matches("\\d+(\\.\\d+)?")) {
+            errorMessage += "Invalid price! Must be numeric.\n";
+        }
+        
+        String dep = depTimeField.getText();
+        String arr = arrTimeField.getText();
+        
+        if (dep == null || !dep.matches("([01]?[0-9]|2[0-3]):[0-5][0-9]")) {
+             errorMessage += "Departure Time must be HH:mm (e.g. 14:30)\n";
+        }
+        
+        if (arr == null || !arr.matches("([01]?[0-9]|2[0-3]):[0-5][0-9]")) {
+             errorMessage += "Arrival Time must be HH:mm (e.g. 16:45)\n";
         }
 
         if (errorMessage.length() == 0) {

@@ -60,13 +60,14 @@ public class AddCustomerController {
 
         // Relaxed validation: Allow 13 digits (standard) or 14 (if user formats
         // differently)
-        if ((cnic.length() != 13) || !cnic.matches("\\d+")) {
-            showAlert(Alert.AlertType.WARNING, "Validation Error", "CNIC must be 13 digits (no dashes).");
+        // Strict validation: Require exactly 13 digits
+        if (cnic.length() != 13 || !cnic.matches("\\d+")) {
+            showAlert(Alert.AlertType.WARNING, "Validation Error", "CNIC must be exactly 13 digits (no dashes).");
             return;
         }
 
         if (phone.length() != 11 || !phone.matches("\\d+")) {
-            showAlert(Alert.AlertType.WARNING, "Validation Error", "Phone number must be 11 digits.");
+            showAlert(Alert.AlertType.WARNING, "Validation Error", "Phone number must be exactly 11 digits.");
             return;
         }
 
