@@ -60,7 +60,7 @@
 ---
 
 ## 👥 Contributors
-*   **M. Owais (50907)** - *Lead Developer*
+*   **Awais Shabbir (51460)** - *Lead Developer*
 *   **Team TrainX** - *Development & Testing*
 
 ---
