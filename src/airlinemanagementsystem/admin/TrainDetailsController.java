@@ -26,6 +26,13 @@ public class TrainDetailsController {
     private TableColumn<ObservableList<String>, String> colFair;
 
     @FXML
+    private TableColumn<ObservableList<String>, String> colDepTime;
+    @FXML
+    private TableColumn<ObservableList<String>, String> colArrTime;
+    @FXML
+    private TableColumn<ObservableList<String>, Void> colAction;
+
+    @FXML
     public void initialize() {
         setupTable();
         loadData();
@@ -37,25 +44,81 @@ public class TrainDetailsController {
         colSource.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().get(2)));
         colDest.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().get(3)));
         colFair.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().get(4)));
+        colDepTime.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().get(5)));
+        colArrTime.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().get(6)));
+        
+        addDeleteButtonToTable();
+    }
+
+    private void addDeleteButtonToTable() {
+        javafx.util.Callback<TableColumn<ObservableList<String>, Void>, javafx.scene.control.TableCell<ObservableList<String>, Void>> cellFactory = new javafx.util.Callback<>() {
+            @Override
+            public javafx.scene.control.TableCell<ObservableList<String>, Void> call(final TableColumn<ObservableList<String>, Void> param) {
+                final javafx.scene.control.TableCell<ObservableList<String>, Void> cell = new javafx.scene.control.TableCell<>() {
+                    private final javafx.scene.control.Button btn = new javafx.scene.control.Button("Delete");
+
+                    {
+                        btn.setStyle("-fx-background-color: #ff4444; -fx-text-fill: white;");
+                        btn.setOnAction((event) -> {
+                            ObservableList<String> data = getTableView().getItems().get(getIndex());
+                            // Train Code is at index 0
+                            String trainCode = data.get(0); 
+                            deleteTrain(trainCode, data);
+                        });
+                    }
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(btn);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
+        colAction.setCellFactory(cellFactory);
+    }
+
+    private void deleteTrain(String trainCode, ObservableList<String> row) {
+        try {
+            Conn c = new Conn();
+            // Assuming the column name in DB is 'train_code' based on loadData method
+            String query = "DELETE FROM train WHERE train_code = '" + trainCode + "'";
+            c.s.executeUpdate(query);
+
+            // Refresh list
+            trainTable.getItems().remove(row);
+            showAlert(javafx.scene.control.Alert.AlertType.INFORMATION, "Success", "Train deleted successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(javafx.scene.control.Alert.AlertType.ERROR, "Error", "Could not delete train: " + e.getMessage());
+        }
     }
 
     private void loadData() {
         ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
         try {
             Conn conn = new Conn();
-            // Assuming table 'train' has columns: train_code, train_name, source,
-            // destination, fair
-            // Adjust query if columns are different
             String query = "select * from train";
             ResultSet rs = conn.s.executeQuery(query);
 
             while (rs.next()) {
                 ObservableList<String> row = FXCollections.observableArrayList();
+                // Ensure these column names match your DB schema exactly.
+                // If the user says they aren't showing, maybe the column names are different or table is empty?
+                // I'll assume standard naming but keeping an eye out.
                 row.add(rs.getString("train_code"));
                 row.add(rs.getString("train_name"));
                 row.add(rs.getString("source"));
                 row.add(rs.getString("destination"));
-                row.add(rs.getString("fair"));
+                row.add(rs.getString("price"));
+                row.add(rs.getString("departure_time"));
+                row.add(rs.getString("arrival_time"));
                 data.add(row);
             }
 
@@ -63,7 +126,16 @@ public class TrainDetailsController {
 
         } catch (Exception e) {
             e.printStackTrace();
+            showAlert(javafx.scene.control.Alert.AlertType.ERROR, "Error Loading Data", "Could not load train list: " + e.getMessage());
         }
+    }
+    
+    private void showAlert(javafx.scene.control.Alert.AlertType type, String title, String content) {
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     @FXML

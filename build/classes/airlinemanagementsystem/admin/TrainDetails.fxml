@@ -29,6 +29,7 @@
                      <TableColumn fx:id="colSource" text="Source" />
                      <TableColumn fx:id="colDest" text="Destination" />
                      <TableColumn fx:id="colFair" text="Fair" />
+                     <TableColumn fx:id="colAction" text="Action" />
                 </columns>
                 <columnResizePolicy>
                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

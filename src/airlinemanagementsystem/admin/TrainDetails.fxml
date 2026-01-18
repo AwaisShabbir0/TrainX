@@ -28,7 +28,10 @@
                      <TableColumn fx:id="colTrainName" text="Train Name" />
                      <TableColumn fx:id="colSource" text="Source" />
                      <TableColumn fx:id="colDest" text="Destination" />
-                     <TableColumn fx:id="colFair" text="Fair" />
+                     <TableColumn fx:id="colFair" text="Price" />
+                     <TableColumn fx:id="colDepTime" text="Departure Time" />
+                     <TableColumn fx:id="colArrTime" text="Arrival Time" />
+                     <TableColumn fx:id="colAction" text="Action" />
                 </columns>
                 <columnResizePolicy>
                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

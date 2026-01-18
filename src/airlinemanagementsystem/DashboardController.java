@@ -22,6 +22,8 @@ public class DashboardController {
     @FXML
     private Button btnAddTrain;
     @FXML
+    private Button btnViewTrains;
+    @FXML
     private Button btnPassengerInfo;
     @FXML
     private Button btnKitchenOrders;
@@ -48,6 +50,7 @@ public class DashboardController {
     private void updateDashboard(String role) {
         if ("Admin".equalsIgnoreCase(role)) {
             setButtonVisible(btnAddTrain, true);
+            setButtonVisible(btnViewTrains, true);
             setButtonVisible(btnPassengerInfo, true);
             setButtonVisible(btnKitchenOrders, true);
 
@@ -62,6 +65,7 @@ public class DashboardController {
         } else {
             // Customer
             setButtonVisible(btnAddTrain, false);
+            setButtonVisible(btnViewTrains, false);
             setButtonVisible(btnPassengerInfo, false);
             setButtonVisible(btnKitchenOrders, false);
 
@@ -111,6 +115,11 @@ public class DashboardController {
     @FXML
     private void handleAddTrain() {
         MainApp.showAddTrain();
+    }
+
+    @FXML
+    private void handleViewTrains() {
+        MainApp.showTrainDetails();
     }
 
     @FXML

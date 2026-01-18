@@ -125,6 +125,16 @@
                 </graphic>
             </Button>
             
+            <Button fx:id="btnViewTrains" onAction="#handleViewTrains" styleClass="dashboard-tile" text="View Trains" visible="false" managed="false">
+                 <graphic>
+                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/train_icon.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            
             <Button fx:id="btnPassengerInfo" onAction="#handlePassengerInfo" styleClass="dashboard-tile" text="Passenger Info" visible="false" managed="false">
                  <graphic>
                     <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
