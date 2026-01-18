@@ -20,7 +20,7 @@ public class AddTrainController {
 
     private void createColumnsIfNotExists() {
         try {
-            Conn c = new Conn();
+            Conn c = Conn.getInstance();
             // Check if column exists, if not add it
             // This is a bit tricky in pure SQL without metadata inspection logic
             // complexity,
@@ -76,7 +76,7 @@ public class AddTrainController {
         }
 
         try {
-            Conn conn = new Conn();
+            Conn conn = Conn.getInstance();
             // Check if row already exists
             String check = "SELECT * FROM train WHERE train_code = '" + code + "'";
             if (conn.s.executeQuery(check).next()) {

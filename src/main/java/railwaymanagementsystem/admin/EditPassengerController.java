@@ -35,7 +35,7 @@ public class EditPassengerController {
     private void handleUpdate() {
         if (isInputValid()) {
             try {
-                Conn c = new Conn();
+                Conn c = Conn.getInstance();
                 String query = "UPDATE passenger SET name = '" + nameField.getText() + "', nationality = '"
                         + nationalityField.getText() + "', phone = '" + phoneField.getText() + "', address = '"
                         + addressField.getText() + "', gender = '" + genderField.getText() 

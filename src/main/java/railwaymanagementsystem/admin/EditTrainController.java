@@ -39,7 +39,7 @@ public class EditTrainController {
     private void handleUpdate() {
         if (isInputValid()) {
             try {
-                Conn c = new Conn();
+                Conn c = Conn.getInstance();
                 String query = "UPDATE train SET train_name = '" + trainNameField.getText() + "', source = '"
                         + sourceField.getText() + "', destination = '" + destField.getText() + "', price = '"
                         + fairField.getText() + "', departure_time = '" + depTimeField.getText() 

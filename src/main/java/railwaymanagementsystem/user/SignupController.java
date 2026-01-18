@@ -42,7 +42,7 @@ public class SignupController {
         }
 
         try {
-            Conn c = new Conn();
+            Conn c = Conn.getInstance();
             // Check if username already exists
             ResultSet rs = c.s.executeQuery("select * from users where username = '" + username + "'");
             if (rs.next()) {

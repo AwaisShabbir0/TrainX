@@ -26,7 +26,7 @@ public class CancelController {
         }
 
         try {
-            Conn conn = new Conn();
+            Conn conn = Conn.getInstance();
             String currentUser = MainApp.getCurrentUser();
             String query = "select * from reservation where PNR = '" + pnr + "' AND account_username = '" + currentUser + "'";
             ResultSet rs = conn.s.executeQuery(query);
@@ -63,7 +63,7 @@ public class CancelController {
         }
 
         try {
-            Conn conn = new Conn();
+            Conn conn = Conn.getInstance();
             String query = "insert into cancel values('" + pnr + "', '" + name + "', '" + cancelno + "', '" + fcode
                     + "', '" + date + "')";
             conn.s.executeUpdate(query);

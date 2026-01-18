@@ -73,7 +73,7 @@ public class AddCustomerController {
         }
 
         try {
-            Conn conn = new Conn();
+            Conn conn = Conn.getInstance();
 
             // Check if CNIC already exists in passenger table
             try {
@@ -161,3 +161,18 @@ public class AddCustomerController {
         alert.showAndWait();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

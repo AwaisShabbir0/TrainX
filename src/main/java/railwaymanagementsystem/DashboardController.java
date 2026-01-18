@@ -45,7 +45,7 @@ public class DashboardController {
         if (user != null) {
             String displayName = user;
             try {
-                Conn c = new Conn();
+                Conn c = Conn.getInstance();
                 java.sql.ResultSet rs = c.s.executeQuery("select full_name from users where username = '" + user + "'");
                 if (rs.next()) {
                     displayName = rs.getString("full_name");
@@ -60,38 +60,25 @@ public class DashboardController {
     }
 
     private void updateDashboard(String role) {
-        if ("Admin".equalsIgnoreCase(role)) {
-            setButtonVisible(btnAddTrain, true);
-            setButtonVisible(btnViewTrains, true);
-            setButtonVisible(btnPassengerInfo, true);
-            setButtonVisible(btnKitchenOrders, true);
-            setButtonVisible(btnAnalytics, true);
+        // Boolean flag to toggle visibility logic
+        boolean isAdmin = "Admin".equalsIgnoreCase(role);
 
-            setButtonVisible(btnBookTicket, false);
-            setButtonVisible(btnTrainSchedule, false);
-            setButtonVisible(btnJourneyHistory, false);
-            setButtonVisible(btnCancelTicket, false);
-            setButtonVisible(btnDownloadTicket, false);
-            setButtonVisible(btnProfile, false);
-            setButtonVisible(btnMeal, false);
-            setButtonVisible(btnWallet, false);
-        } else {
-            // Customer
-            setButtonVisible(btnAddTrain, false);
-            setButtonVisible(btnViewTrains, false);
-            setButtonVisible(btnPassengerInfo, false);
-            setButtonVisible(btnKitchenOrders, false);
-            setButtonVisible(btnAnalytics, false);
+        // Admin Features
+        setButtonVisible(btnAddTrain, isAdmin);
+        setButtonVisible(btnViewTrains, isAdmin);
+        setButtonVisible(btnPassengerInfo, isAdmin);
+        setButtonVisible(btnKitchenOrders, isAdmin);
+        setButtonVisible(btnAnalytics, isAdmin);
 
-            setButtonVisible(btnBookTicket, true);
-            setButtonVisible(btnTrainSchedule, true);
-            setButtonVisible(btnJourneyHistory, true);
-            setButtonVisible(btnCancelTicket, true);
-            setButtonVisible(btnDownloadTicket, true);
-            setButtonVisible(btnProfile, true);
-            setButtonVisible(btnMeal, true);
-            setButtonVisible(btnWallet, true);
-        }
+        // Customer Features (Inverse of Admin)
+        setButtonVisible(btnBookTicket, !isAdmin);
+        setButtonVisible(btnTrainSchedule, !isAdmin);
+        setButtonVisible(btnJourneyHistory, !isAdmin);
+        setButtonVisible(btnCancelTicket, !isAdmin);
+        setButtonVisible(btnDownloadTicket, !isAdmin);
+        setButtonVisible(btnProfile, !isAdmin);
+        setButtonVisible(btnMeal, !isAdmin);
+        setButtonVisible(btnWallet, !isAdmin);
     }
 
     private void setButtonVisible(Button btn, boolean visible) {
@@ -171,3 +158,7 @@ public class DashboardController {
         MainApp.showLoginScreen();
     }
 }
+
+
+
+

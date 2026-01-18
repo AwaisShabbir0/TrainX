@@ -56,7 +56,7 @@ public class BookTicketController {
 
     private void autoFillCNIC() {
         try {
-            Conn c = new Conn();
+            Conn c = Conn.getInstance();
             String query = "select cnic from users where username = '" + MainApp.getCurrentUser() + "'";
             ResultSet rs = c.s.executeQuery(query);
             if (rs.next()) {
@@ -70,7 +70,7 @@ public class BookTicketController {
 
     private void loadStations() {
         try {
-            Conn c = new Conn();
+            Conn c = Conn.getInstance();
             String query = "select * from train";
             ResultSet rs = c.s.executeQuery(query);
 
@@ -102,7 +102,7 @@ public class BookTicketController {
         }
 
         try {
-            Conn conn = new Conn();
+            Conn conn = Conn.getInstance();
             String currentUser = MainApp.getCurrentUser();
             String query = "select * from users where cnic = '" + cnic + "' and username = '" + currentUser + "'";
             ResultSet rs = conn.s.executeQuery(query);
@@ -132,7 +132,7 @@ public class BookTicketController {
         }
 
         try {
-            Conn conn = new Conn();
+            Conn conn = Conn.getInstance();
             String query = "select * from train where source = '" + src + "' and destination = '" + dest + "'";
             ResultSet rs = conn.s.executeQuery(query);
 
@@ -200,12 +200,11 @@ public class BookTicketController {
             showAlert(Alert.AlertType.WARNING, "No Seats", "Please select at least one seat.");
             return;
         }
-        if (dpDate.getValue() == null) {
-            showAlert(Alert.AlertType.WARNING, "No Date", "Please select a date.");
-            return;
-        }
-        if (!ValidationUtils.isValidFutureDate(dpDate.getValue())) {
-            showAlert(Alert.AlertType.WARNING, "Invalid Date", "You cannot book for a past date.");
+
+        // inline refactoring
+
+        if (dpDate.getValue() == null || !ValidationUtils.isValidFutureDate(dpDate.getValue())) {
+            showAlert(Alert.AlertType.WARNING, "Invalid Date", "Please select a valid future date.");
             return;
         }
 
@@ -220,7 +219,7 @@ public class BookTicketController {
         String ddate = dpDate.getValue().toString();
 
         try {
-            Conn conn = new Conn();
+            Conn conn = Conn.getInstance();
             double basePrice = 0.0;
             String priceQuery = "SELECT price FROM train WHERE train_name = '" + trainname + "' AND train_code = '"
                     + traincode + "'";
@@ -255,3 +254,26 @@ public class BookTicketController {
         alert.showAndWait();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

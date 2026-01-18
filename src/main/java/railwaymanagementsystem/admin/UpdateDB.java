@@ -7,7 +7,7 @@ import java.sql.*;
 public class UpdateDB {
     public static void main(String[] args) {
         try {
-            Conn c = new Conn();
+            Conn c = Conn.getInstance();
 
             // 1. Check/Create 'passenger' table
             try {

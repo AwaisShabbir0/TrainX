@@ -34,10 +34,10 @@ public class TicketController {
         }
 
         try {
-            Conn conn = new Conn();
+            Conn conn = Conn.getInstance();
             String currentUser = MainApp.getCurrentUser();
             String query = "SELECT * FROM reservation WHERE PNR = ? AND account_username = ?";
-            PreparedStatement ps = conn.c.prepareStatement(query);
+            PreparedStatement ps = conn.getConnection().prepareStatement(query);
             ps.setString(1, pnr);
             ps.setString(2, currentUser);
             ResultSet rs = ps.executeQuery();

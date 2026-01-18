@@ -127,7 +127,7 @@ public class ViewPassengersController {
 
     private void deletePassenger(Passenger passenger) {
         try {
-            Conn c = new Conn();
+            Conn c = Conn.getInstance();
             String query = "DELETE FROM passenger WHERE cnic = '" + passenger.getCnic() + "'";
             c.s.executeUpdate(query);
 
@@ -150,7 +150,7 @@ public class ViewPassengersController {
     private void loadPassengers() {
         passengers.clear();
         try {
-            Conn c = new Conn();
+            Conn c = Conn.getInstance();
             String query = "SELECT * FROM passenger";
             ResultSet rs = c.s.executeQuery(query);
 

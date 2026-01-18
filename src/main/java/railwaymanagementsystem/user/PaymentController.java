@@ -48,7 +48,7 @@ public class PaymentController {
 
     private void checkWalletBalance() {
         try {
-            Conn c = new Conn();
+            Conn c = Conn.getInstance();
             String query = "SELECT balance FROM wallet WHERE username = '" + MainApp.getCurrentUser() + "'";
             ResultSet rs = c.s.executeQuery(query);
             if (rs.next()) {
@@ -80,7 +80,7 @@ public class PaymentController {
         }
 
         try {
-            Conn conn = new Conn();
+            Conn conn = Conn.getInstance();
 
             // 1. Deduct Money
             String deductQuery = "UPDATE wallet SET balance = balance - " + amount + " WHERE username = '"

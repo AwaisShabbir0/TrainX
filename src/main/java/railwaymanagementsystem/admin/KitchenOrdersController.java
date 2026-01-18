@@ -33,7 +33,7 @@ public class KitchenOrdersController {
     private void loadOrders() {
         orders.clear();
         try {
-            Conn c = new Conn();
+            Conn c = Conn.getInstance();
             String query = "SELECT * FROM catering";
             ResultSet rs = c.s.executeQuery(query);
 

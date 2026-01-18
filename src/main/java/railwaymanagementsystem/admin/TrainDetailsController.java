@@ -124,7 +124,7 @@ public class TrainDetailsController {
 
     private void deleteTrain(String trainCode, ObservableList<String> row) {
         try {
-            Conn c = new Conn();
+            Conn c = Conn.getInstance();
             // Assuming the column name in DB is 'train_code' based on loadData method
             String query = "DELETE FROM train WHERE train_code = '" + trainCode + "'";
             c.s.executeUpdate(query);
@@ -141,7 +141,7 @@ public class TrainDetailsController {
     private void loadData() {
         ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
         try {
-            Conn conn = new Conn();
+            Conn conn = Conn.getInstance();
             String query = "select * from train";
             ResultSet rs = conn.s.executeQuery(query);
 

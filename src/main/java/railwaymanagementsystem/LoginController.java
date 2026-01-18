@@ -44,7 +44,7 @@ public class LoginController {
         String role = roleChoice.getValue();
 
         try {
-            Conn c = new Conn();
+            Conn c = Conn.getInstance();
             String query;
             if (role.equals("Admin")) {
                 query = "select * from login where username = '" + username + "' and password = '" + password + "'";

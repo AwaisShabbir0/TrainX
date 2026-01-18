@@ -46,7 +46,7 @@ public class WalletController {
 
     private void initDB() {
         try {
-            Conn c = new Conn();
+            Conn c = Conn.getInstance();
             // Create Wallet Table
             String sql1 = "CREATE TABLE IF NOT EXISTS wallet (username VARCHAR(50) PRIMARY KEY, balance DECIMAL(10,2))";
             c.s.executeUpdate(sql1);
@@ -70,7 +70,7 @@ public class WalletController {
 
     private void loadWalletData() {
         try {
-            Conn c = new Conn();
+            Conn c = Conn.getInstance();
 
             // Load Balance
             String queryBal = "SELECT balance FROM wallet WHERE username = '" + currentUser + "'";
@@ -136,7 +136,7 @@ public class WalletController {
         }
 
         try {
-            Conn c = new Conn();
+            Conn c = Conn.getInstance();
 
             // Update Balance
             String update = "UPDATE wallet SET balance = balance + " + amount + " WHERE username = '" + currentUser

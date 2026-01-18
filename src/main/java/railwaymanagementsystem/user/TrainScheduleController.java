@@ -25,7 +25,7 @@ public class TrainScheduleController {
 
     private void loadSchedule() {
         try {
-            Conn conn = new Conn();
+            Conn conn = Conn.getInstance();
             String query = "select * from train";
             ResultSet rs = conn.s.executeQuery(query);
 

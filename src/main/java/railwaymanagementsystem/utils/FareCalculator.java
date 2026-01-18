@@ -13,6 +13,8 @@ public class FareCalculator {
      * @param className The class of travel ("AC Business", "AC Standard", "Economy").
      * @return The total calculated fare.
      */
+
+    // Refactoring applied here 
     public static double calculateTotalFare(double basePrice, int numberOfSeats, String className) {
         if (basePrice < 0 || numberOfSeats <= 0) {
             return 0.0;

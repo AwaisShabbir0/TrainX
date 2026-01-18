@@ -5,7 +5,7 @@ import java.sql.*;
 public class DBInspector {
     public static void main(String[] args) {
         try {
-            Conn c = new Conn();
+            Conn c = Conn.getInstance();
             ResultSet rs = c.s.executeQuery("SELECT * FROM users LIMIT 1");
             ResultSetMetaData rsmd = rs.getMetaData();
             int columnCount = rsmd.getColumnCount();
@@ -21,3 +21,31 @@ public class DBInspector {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Retrieving data using the Connection class
+
+
+
+
+
+
+
+

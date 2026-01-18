@@ -31,7 +31,7 @@ public class JourneyDetailsController {
         }
 
         try {
-            Conn c = new Conn();
+            Conn c = Conn.getInstance();
             ResultSet rs;
             String query;
 

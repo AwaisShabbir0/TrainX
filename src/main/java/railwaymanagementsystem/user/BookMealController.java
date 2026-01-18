@@ -42,7 +42,7 @@ public class BookMealController {
 
     private void createTableIfNotExists() {
         try {
-            Conn c = new Conn();
+            Conn c = Conn.getInstance();
             String query = "CREATE TABLE IF NOT EXISTS catering (pnr VARCHAR(20), items VARCHAR(200), amount INT)";
             c.s.executeUpdate(query);
         } catch (Exception e) {
@@ -73,7 +73,7 @@ public class BookMealController {
         }
 
         try {
-            Conn c = new Conn();
+            Conn c = Conn.getInstance();
             // Verify PNR exists in reservation
             // Verify PNR exists in reservation AND belongs to current user
             String query = "SELECT * FROM reservation WHERE PNR = '" + pnr + "' AND account_username = '" + MainApp.getCurrentUser() + "'";
@@ -123,7 +123,7 @@ public class BookMealController {
             items.setLength(items.length() - 2);
 
         try {
-            Conn c = new Conn();
+            Conn c = Conn.getInstance();
             String currentUser = MainApp.getCurrentUser();
 
             // Check Balance

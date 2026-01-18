@@ -35,7 +35,7 @@ public class UserProfileController {
 
     private void loadUserDetails() {
         try {
-            Conn c = new Conn();
+            Conn c = Conn.getInstance();
             String query = "SELECT * FROM users WHERE username = '" + currentUser + "'";
             ResultSet rs = c.s.executeQuery(query);
 
@@ -76,7 +76,7 @@ public class UserProfileController {
         }
 
         try {
-            Conn c = new Conn();
+            Conn c = Conn.getInstance();
             
             // Check if CNIC exists for another user
             String checkQuery = "SELECT * FROM users WHERE cnic = '" + cnic + "' AND username != '" + currentUser + "'";

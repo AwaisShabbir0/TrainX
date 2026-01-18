@@ -45,7 +45,7 @@ public class SeatSelectionController {
     private void loadBookedSeats() {
         bookedSeats.clear();
         try {
-            Conn conn = new Conn();
+            Conn conn = Conn.getInstance();
             String query = "select seats from reservation where train_code = '" + trainCode + "' AND ddate = '" + date
                     + "'";
             ResultSet rs = conn.s.executeQuery(query);
