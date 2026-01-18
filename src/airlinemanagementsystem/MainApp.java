@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
-    private static Stage primaryStage;
+    public static Stage primaryStage;
     private static String currentUser;
     private static String userRole;
 

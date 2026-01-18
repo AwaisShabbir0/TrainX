@@ -59,13 +59,24 @@ public class ViewPassengersController {
             @Override
             public TableCell<Passenger, Void> call(final TableColumn<Passenger, Void> param) {
                 final TableCell<Passenger, Void> cell = new TableCell<>() {
-                    private final Button btn = new Button("Delete");
+                    private final Button btnDelete = new Button("Delete");
+                    private final Button btnEdit = new Button("Edit");
+                    private final javafx.scene.layout.HBox pane = new javafx.scene.layout.HBox(btnEdit, btnDelete);
 
                     {
-                        btn.setStyle("-fx-background-color: #ff4444; -fx-text-fill: white;");
-                        btn.setOnAction((event) -> {
+                        pane.setSpacing(10);
+                        pane.setAlignment(javafx.geometry.Pos.CENTER);
+                        
+                        btnDelete.setStyle("-fx-background-color: #ff4444; -fx-text-fill: white;");
+                        btnDelete.setOnAction((event) -> {
                             Passenger data = getTableView().getItems().get(getIndex());
                             deletePassenger(data);
+                        });
+
+                        btnEdit.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
+                        btnEdit.setOnAction((event) -> {
+                             Passenger data = getTableView().getItems().get(getIndex());
+                             openEditDialog(data);
                         });
                     }
 
@@ -75,7 +86,7 @@ public class ViewPassengersController {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            setGraphic(btn);
+                            setGraphic(pane);
                         }
                     }
                 };
@@ -84,6 +95,34 @@ public class ViewPassengersController {
         };
 
         colAction.setCellFactory(cellFactory);
+    }
+
+    private void openEditDialog(Passenger passenger) {
+        try {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(MainApp.class.getResource("admin/EditPassenger.fxml"));
+            javafx.scene.layout.BorderPane page = loader.load();
+
+            javafx.stage.Stage dialogStage = new javafx.stage.Stage();
+            dialogStage.setTitle("Edit Passenger");
+            dialogStage.initModality(javafx.stage.Modality.WINDOW_MODAL);
+            dialogStage.initOwner(MainApp.primaryStage);
+            javafx.scene.Scene scene = new javafx.scene.Scene(page);
+            dialogStage.setScene(scene);
+
+            EditPassengerController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setPassengerData(passenger);
+
+            dialogStage.showAndWait();
+            
+            if (controller.isOkClicked()) {
+                loadPassengers(); // Refresh table
+            }
+
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Could not open edit dialog: " + e.getMessage());
+        }
     }
 
     private void deletePassenger(Passenger passenger) {

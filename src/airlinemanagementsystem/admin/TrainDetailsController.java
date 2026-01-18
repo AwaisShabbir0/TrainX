@@ -55,15 +55,25 @@ public class TrainDetailsController {
             @Override
             public javafx.scene.control.TableCell<ObservableList<String>, Void> call(final TableColumn<ObservableList<String>, Void> param) {
                 final javafx.scene.control.TableCell<ObservableList<String>, Void> cell = new javafx.scene.control.TableCell<>() {
-                    private final javafx.scene.control.Button btn = new javafx.scene.control.Button("Delete");
+                    private final javafx.scene.control.Button btnDelete = new javafx.scene.control.Button("Delete");
+                    private final javafx.scene.control.Button btnEdit = new javafx.scene.control.Button("Edit");
+                    private final javafx.scene.layout.HBox pane = new javafx.scene.layout.HBox(btnEdit, btnDelete);
 
                     {
-                        btn.setStyle("-fx-background-color: #ff4444; -fx-text-fill: white;");
-                        btn.setOnAction((event) -> {
+                        pane.setSpacing(10);
+                        pane.setAlignment(javafx.geometry.Pos.CENTER);
+                        
+                        btnDelete.setStyle("-fx-background-color: #ff4444; -fx-text-fill: white;");
+                        btnDelete.setOnAction((event) -> {
                             ObservableList<String> data = getTableView().getItems().get(getIndex());
-                            // Train Code is at index 0
                             String trainCode = data.get(0); 
                             deleteTrain(trainCode, data);
+                        });
+
+                        btnEdit.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
+                        btnEdit.setOnAction((event) -> {
+                             ObservableList<String> data = getTableView().getItems().get(getIndex());
+                             openEditDialog(data);
                         });
                     }
 
@@ -73,7 +83,7 @@ public class TrainDetailsController {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            setGraphic(btn);
+                            setGraphic(pane);
                         }
                     }
                 };
@@ -82,6 +92,34 @@ public class TrainDetailsController {
         };
 
         colAction.setCellFactory(cellFactory);
+    }
+    
+    private void openEditDialog(ObservableList<String> trainData) {
+        try {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(MainApp.class.getResource("admin/EditTrain.fxml"));
+            javafx.scene.layout.BorderPane page = loader.load();
+
+            javafx.stage.Stage dialogStage = new javafx.stage.Stage();
+            dialogStage.setTitle("Edit Train");
+            dialogStage.initModality(javafx.stage.Modality.WINDOW_MODAL);
+            dialogStage.initOwner(MainApp.primaryStage);
+            javafx.scene.Scene scene = new javafx.scene.Scene(page);
+            dialogStage.setScene(scene);
+
+            EditTrainController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setTrainData(trainData);
+
+            dialogStage.showAndWait();
+            
+            if (controller.isOkClicked()) {
+                loadData(); // Refresh table
+            }
+
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+            showAlert(javafx.scene.control.Alert.AlertType.ERROR, "Error", "Could not open edit dialog: " + e.getMessage());
+        }
     }
 
     private void deleteTrain(String trainCode, ObservableList<String> row) {
