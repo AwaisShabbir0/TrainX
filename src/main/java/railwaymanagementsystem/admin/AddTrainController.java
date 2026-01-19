@@ -21,18 +21,7 @@ public class AddTrainController {
     private void createColumnsIfNotExists() {
         try {
             Conn c = Conn.getInstance();
-            // Check if column exists, if not add it
-            // This is a bit tricky in pure SQL without metadata inspection logic
-            // complexity,
-            // so we'll try a safe ADD COLUMN command that ignores if exists or check meta
-
-            // Simpler approach: Just try to alter table, catch exception if it fails (not
-            // ideal but works for quick patches)
-            // Or better: Use the DBInspector logic.
-            // Let's just run alter table. MySQL supports "ADD COLUMN IF NOT EXISTS" only in
-            // newer versions.
-            // We will standard try-catch blocks for each column.
-
+           
             try {
                 c.s.executeUpdate("ALTER TABLE train ADD COLUMN departure_time VARCHAR(20)");
             } catch (Exception e) {
@@ -83,11 +72,6 @@ public class AddTrainController {
                 showAlert(Alert.AlertType.ERROR, "Error", "Train Code already exists!");
                 return;
             }
-
-            // Using simple statement. Note: The train table structure must match!
-            // If the table was just altered, the column order ends with dep, arr.
-            // Original: code, name, source, dest, price
-            // New: code, name, source, dest, price, dep, arr
 
             String query = "INSERT INTO train (train_code, train_name, source, destination, price, departure_time, arrival_time) VALUES('"
                     + code + "', '" + name + "', '" + src + "', '" + dest + "', '"

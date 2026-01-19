@@ -43,14 +43,12 @@ public class SignupController {
 
         try {
             Conn c = Conn.getInstance();
-            // Check if username already exists
             ResultSet rs = c.s.executeQuery("select * from users where username = '" + username + "'");
             if (rs.next()) {
                 showAlert(Alert.AlertType.ERROR, "Duplicate", "Username already exists!");
                 return;
             }
             
-            // Check if CNIC already exists
             ResultSet rsCNIC = c.s.executeQuery("select * from users where cnic = '" + cnic + "'");
             if (rsCNIC.next()) {
                 showAlert(Alert.AlertType.ERROR, "Duplicate", "An account with this CNIC already exists!");
@@ -61,11 +59,9 @@ public class SignupController {
                     + cnic + "', '" + phone + "', '" + address + "')";
             c.s.executeUpdate(query);
 
-            // Also add to passenger table for Admin View
             String passengerQuery = "INSERT INTO passenger VALUES('" + name + "', 'PK', '" + phone + "', '"
             + address + "', '" + cnic + "', 'Male', '" + username + "')";
-            // improved logic: default nationality to PK and gender to Male (since not collected in signup)
-            // ideally we should add gender/nationality to signup form too, but for now defaults work
+           
             c.s.executeUpdate(passengerQuery);
 
             showAlert(Alert.AlertType.INFORMATION, "Success", "Account Created Successfully!");

@@ -85,39 +85,35 @@ public class AddCustomerController {
             } catch (Exception e) {
                  e.printStackTrace();
             }
-            
-            // 1. First, create the User Login (users table)
-            // Users table schema: username, password, name, cnic, phone, address
+         
             String userQuery = "INSERT INTO users VALUES('" + username + "', '" + password + "', '" + name + "', '" + cnic + "', '" + phone + "', '" + address + "')";
             try {
                 conn.s.executeUpdate(userQuery);
             } catch (Exception e) {
-                 // Ignore duplicate username here, handled by SQL constraint usually, but let's notify
                  if(e.getMessage().contains("Duplicate")) {
                      showAlert(Alert.AlertType.WARNING, "Warning", "Username exists. Linking to existing user.");
                  }
-                 // If users table insert fails, might abort? But let's try passenger.
+                 
                  System.out.println("User insert warning: " + e.getMessage());
             }
 
-            // 2. Then add to Passenger list
+           
             String query = "INSERT INTO passenger VALUES('" + name + "', '" + nationality + "', '" + phone + "', '"
                     + address + "', '" + cnic + "', '" + gender + "', '" + username + "')";
             
             try {
                 conn.s.executeUpdate(query);
             } catch (java.sql.SQLException e) {
-                // Determine if it's the Column Count error
                 if (e.getMessage().contains("count doesn't match") || e.getErrorCode() == 1136) {
-                     // Try to fix schema on the fly
+                 
                      System.out.println("Attempting to fix schema...");
                      try {
                          conn.s.executeUpdate("ALTER TABLE passenger ADD COLUMN username VARCHAR(50)");
-                         // Retry insert
+
                          conn.s.executeUpdate(query);
                      } catch (Exception ex) {
-                         // Still failed
-                         throw e; // Throw original
+               
+                         throw e; 
                      }
                 } else {
                     throw e;
@@ -126,7 +122,6 @@ public class AddCustomerController {
             
             showAlert(Alert.AlertType.INFORMATION, "Success", "Customer Details & Login Added Successfully");
             clearFields();
-            // Return to View Passengers list so user can see their addition
             MainApp.showViewPassengers();
         } catch (Exception e) {
             e.printStackTrace();
@@ -137,8 +132,7 @@ public class AddCustomerController {
 
     @FXML
     private void handleBack() {
-        // Return to View Passengers instead of Dashboard, as that's likely where they
-        // came from
+
         MainApp.showViewPassengers();
     }
 

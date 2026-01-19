@@ -15,7 +15,6 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        // Run DB Update/Check on startup to fix schema issues
         new railwaymanagementsystem.admin.UpdateDB().main(null);
         
         MainApp.primaryStage = primaryStage;

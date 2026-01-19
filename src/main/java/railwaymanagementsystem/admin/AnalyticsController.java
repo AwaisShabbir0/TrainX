@@ -25,25 +25,12 @@ public class AnalyticsController {
         try {
             Conn c = Conn.getInstance();
 
-            // 1. Total Revenue (Sum of all wallet debits related to ticket booking)
-            // Note: Since we don't have a 'sales' table, we use wallet_history DEBITs.
-            // Ideally should filter by description or type.
             String queryRevenue = "SELECT SUM(amount) as total FROM wallet_history WHERE type = 'DEBIT'";
             ResultSet rsRevenue = c.s.executeQuery(queryRevenue);
             if (rsRevenue.next()) {
                 double rev = rsRevenue.getDouble("total");
                 lblRevenue.setText("PKR " + String.format("%,.0f", rev));
             }
-
-            // 2. Total Bookings
-            // Reset Statement for new query or create new connection/statement ideally but simple approach:
-            // Since executeQuery closes previous result set on same statement in some drivers/configs, best to use separate if unsure.
-            // But usually safe if we finished reading. Let's create new statement just to be safe or re-use Conn if logic permits.
-            // Simpler: Just Conn.getInstance() for each or re-use 'c' but carefully.
-            // Let's reuse 'c' but get new statement for safety if driver allows. 
-            // Actually, with standard JDBC, executing another query on same Statement closes previous ResultSet.
-            // We already read rsRevenue, so it is fine.
-
             String queryBookings = "SELECT COUNT(*) as count FROM reservation";
             ResultSet rsBookings = c.s.executeQuery(queryBookings);
             if (rsBookings.next()) {

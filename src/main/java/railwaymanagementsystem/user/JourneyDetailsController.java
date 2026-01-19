@@ -16,13 +16,13 @@ import java.util.List;
 public class JourneyDetailsController {
 
     @FXML
-    private TextField pnrField; // Assuming pnrField is renamed to searchField in the FXML or conceptually
+    private TextField pnrField;
     @FXML
     private TableView<ObservableList<String>> detailsTable;
 
     @FXML
     private void handleShowDetails() {
-        String search = pnrField.getText(); // Using pnrField as searchField based on the diff's context
+        String search = pnrField.getText(); 
         String currentUser = MainApp.getCurrentUser();
 
         if (search == null || search.isEmpty()) {
@@ -35,12 +35,10 @@ public class JourneyDetailsController {
             ResultSet rs;
             String query;
 
-            // First, try to find by PNR, restricted by current user
             query = "select * from reservation where PNR = '" + search + "' AND account_username = '" + currentUser + "'";
             rs = c.s.executeQuery(query);
 
             if (!rs.isBeforeFirst()) {
-                // If PNR not found, try CNIC, still restricted by current user
                 query = "select * from reservation where cnic = '" + search + "' AND account_username = '" + currentUser + "'";
                 rs = c.s.executeQuery(query);
             }
@@ -51,7 +49,6 @@ public class JourneyDetailsController {
                 return;
             }
 
-            // Dynamic Table Column Creation
             detailsTable.getColumns().clear();
             ResultSetMetaData metaData = rs.getMetaData();
             int columnCount = metaData.getColumnCount();
